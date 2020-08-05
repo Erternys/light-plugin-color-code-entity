@@ -1,0 +1,31 @@
+{
+  "name": "@light-plugin/color-code-entity",
+  "version": "0.1.0",
+  "description": "Light Engine is a game engine by Grozzlo",
+  "main": "lib/light.js",
+  "typings": "types/index.d.ts",
+  "jsdelivr": "lib/color-code.min.js",
+  "repository": "https://github.com/Grozzlo/light-engine",
+  "author": "ashikuri",
+  "license": "CC0-1.0",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -w -c rollup.dev.config.js",
+    "publish": "npm run build & npm publish"
+  },
+  "devDependencies": {
+    "builtin-modules": "^3.1.0",
+    "prettier": "^2.0.5",
+    "rollup": "^2.10.9",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^6.0.1",
+    "rollup-plugin-typescript": "^1.0.1",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "light-engine": "^1.0.3"
+  }
+}
