@@ -1,6 +1,6 @@
-# @light-plugin/color-code-entity
+# color-code-entity-light-plugin
 
-`@light-plugin/color-code-entity` adds 2 new entities ColorCodeImageEntity and ColorCodeSpriteEntity which itself adds new methods.
+`color-code-entity-light-plugin` adds 2 new entities ColorCodeImageEntity and ColorCodeSpriteEntity which itself adds new methods.
 
 ```ts
 keepAlpha(value: boolean): this
