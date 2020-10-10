@@ -1,8 +1,12 @@
-# @light-plugin/color-code-entity
+# color-code-entity-light-plugin
 
+<<<<<<< HEAD
 warning: this plugin if use in a browser is useable only server
 
 `@light-plugin/color-code-entity` adds 2 new entities ColorCodeImageEntity and ColorCodeSpriteEntity which itself adds new methods.
+=======
+`color-code-entity-light-plugin` adds 2 new entities ColorCodeImageEntity and ColorCodeSpriteEntity which itself adds new methods.
+>>>>>>> 3b49a76a54b5e67165435b564894f36c49f1f2f1
 
 ```ts
 keepAlpha(value: boolean): this
