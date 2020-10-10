@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <p>
+    <p></p>fps</p>
+    <script src="./../node_modules/light-engine/lib/light.js"></script>
+    <script src="./color-code.js"></script>
+    <script>
+        let p = document.querySelector("p")
+        let i = 0
+        let a = new LightEngine.Game({
+            debug: true,
+            pixel: true,
+            load: {
+                test: LightEngine.Loaders.Image("./no-sprit-playeur.png")
+            },
+            scene: LightEngine.Managers.SceneManager.create([
+                class Test extends LightEngine.Objects.Scene {
+                    constructor() {
+                        super({ name: "test" })
+                        this.world.activation(true)
+                        this.t = this.create.entity.image(50, 50, "test", 10)
+                        this.t.setVelocityX(200)
+                        this.u = this.t.box
+                        this.t.box = this.t.box.clone()
+                        this.t.box.rebound = true
+                        this.create.entity.text(100, 100, "test", {
+                            background: "#00f",
+                            font: { size: 100 }
+                        })
+                        this.entities.add(
+                            new (class Test extends ColorCode.ColorCodeSpriteEntity {
+                                init() {
+                                    // this.changeColor([253, 49, 80], [50, 124, 253])
+                                    // this.changeColor([238, 45, 78], [50, 124, 253])
+                                    this.sprite = {
+                                        x: 0,
+                                        y: 0,
+                                        width: 14,
+                                        height: 18,
+                                    }
+                                    this.changeColor([253, 49, 80], [253, 49, 170])
+                                    this.changeColor([238, 45, 78], [238, 45, 170])
+                                    setTimeout(() => {
+                                        this.changeColor([148, 3, 26], [4, 97, 147])
+                                        setTimeout(() => {
+                                            this.removeColor([148, 3, 26])
+                                        }, 10000);
+                                    }, 10000);
+                                }
+                            })(this, 0, 0, "test"),
+                            new (class Test extends LightEngine.Objects.ObjectEntities.Circle {
+                                redraw() {
+                                    this.box = null
+                                    p.innerHTML = this.scene.game.fps//(this.world.bounds.getX(), this.world.bounds.getY(), this.world.bounds.getWidth(), this.world.bounds.getHeight(), this.collide(this.world), this.x, this.y)
+                                    this.setVelocityX(80)
+                                    this.setScaleR(2)
+                                    if (this.angle < -360) this.angle = 360
+                                    this.angle -= 10
+                                }
+                            })(this, 200, 0, 50)
+                        )
+                    }
+                    init() {
+                        // console.log("test")
+                    }
+                    update() {
+                        // console.log(this.game.gamepad.vectorQuery("left").y, this.game.keyboard.vectorQuery("wasd").y)
+                        if (i++ > 1000) {
+                            this.manager.playWithOpacity("test2", 0.2)
+                        }
+                    }
+                },
+                class Test extends LightEngine.Objects.Scene {
+                    constructor() {
+                        super({ name: "test2" })
+                        this.world.activation(true)
+                        this.entities.add(
+                            new (class Test extends LightEngine.Objects.ObjectEntities.Rectangle {
+                                redraw() {
+                                    p.innerHTML = this.scene.game.fps
+                                    // console.log(this.scene.game.fps)//(this.world.bounds.getX(), this.world.bounds.getY(), this.world.bounds.getWidth(), this.world.bounds.getHeight(), this.collide(this.world), this.x, this.y)
+                                    this.setVelocityY(-80)
+                                    this.setVelocityX(100)
+                                    // if (this.angle < -360) this.angle = 360
+                                    // this.angle -= 10
+                                    // console.log(360 * Math.atan2(this.vy, this.vx) / (Math.PI * 2))
+                                }
+                            })(this, 200, 200, 50, 50),
+                            new (class Test extends LightEngine.Objects.ObjectEntities.Circle {
+                                redraw() {
+                                    this.box = null
+                                    // console.log(this.scene.game.fps)//(this.world.bounds.getX(), this.world.bounds.getY(), this.world.bounds.getWidth(), this.world.bounds.getHeight(), this.collide(this.world), this.x, this.y)
+                                    this.setVelocityX(80)
+                                    if (this.angle < -360) this.angle = 360
+                                    this.angle -= 10
+                                }
+                            })(this, 200, 0, 50)
+                        )
+                    }
+                    init() {
+                        // console.log("test2")
+                    }
+                    update() {
+                    }
+                }
+            ])
+        }, 800, 600)
+    </script>
+</body>
+
+</html>
