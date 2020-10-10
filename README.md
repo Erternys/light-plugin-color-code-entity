@@ -1,5 +1,7 @@
 # @light-plugin/color-code-entity
 
+warning: this plugin if use in a browser is useable only server
+
 `@light-plugin/color-code-entity` adds 2 new entities ColorCodeImageEntity and ColorCodeSpriteEntity which itself adds new methods.
 
 ```ts

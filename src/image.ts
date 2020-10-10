@@ -47,8 +47,8 @@ export class ColorCodeImageEntity extends Objects.ObjectEntities.Image {
       (this.height * this.getScale().y) / -2
     )
     context.translate(
-      this.width * this.originX * this.getScale().x,
-      this.height * this.originY * this.getScale().y
+      (this.width / 2) * -this.originX * this.getScale().x,
+      (this.height / 2) * -this.originY * this.getScale().y
     )
     if (isDefined(image)) {
       if (!isDefined(this.width) && !isDefined(this.height)) {
@@ -56,54 +56,56 @@ export class ColorCodeImageEntity extends Objects.ObjectEntities.Image {
         this.height = image.height
       }
       if (this._prevUse !== this.use || this._update) {
-        this._prevImage = this.getImageData(image)
+        this.getImageData(image).then((image) => {
+          this._prevImage = image
+        })
         this._prevUse = this.use
         this._update = false
       }
       context.drawImage(
-        this._prevImage,
+        this._prevImage || image,
+        0,
+        0,
+        this.width * this.getCrop().w,
+        this.height * this.getCrop().h,
         this.x - this.scene.camera.x,
         this.y - this.scene.camera.y,
         this.width * this.getScale().x,
         this.height * this.getScale().y
       )
-      context.scale(1, 1)
     }
     context.setTransform(1, 0, 0, 1, 0, 0)
-    if (this.scene.game.debug)
-      debugCenter(
-        context,
-        this.x - this.scene.camera.x,
-        this.y - this.scene.camera.y
-      )
+    if (this.scene.game.debug) debugCenter(context, this)
   }
-  private getImageData(image: HTMLImageElement): HTMLCanvasElement {
-    const canvas = document.createElement("canvas")
-    canvas.width = this.width
-    canvas.height = this.height
-    canvas.style.imageRendering = isChromium() ? "pixelated" : "crisp-edges"
-    const context = canvas.getContext("2d")
-    context.drawImage(image, 0, 0, this.width, this.height)
-    const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
-    const changeColor = Array.from(this._changeColorMap.keys())
-    for (let i = 0; i < imageData.data.length; i += 4) {
-      const toColor = this._changeColorMap.get(
-        changeColor.find(
-          (rgb) =>
-            rgb[0] === imageData.data[i] &&
-            rgb[1] === imageData.data[i + 1] &&
-            rgb[2] === imageData.data[i + 2]
+  private getImageData(image: HTMLImageElement): Promise<HTMLCanvasElement> {
+    return new Promise((resolve) => {
+      const canvas = document.createElement("canvas")
+      canvas.width = this.width
+      canvas.height = this.height
+      canvas.style.imageRendering = isChromium() ? "pixelated" : "crisp-edges"
+      const context = canvas.getContext("2d")
+      context.drawImage(image, 0, 0, this.width, this.height)
+      const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
+      const changeColor = Array.from(this._changeColorMap.keys())
+      for (let i = 0; i < imageData.data.length; i += 4) {
+        const toColor = this._changeColorMap.get(
+          changeColor.find(
+            (rgb) =>
+              rgb[0] === imageData.data[i] &&
+              rgb[1] === imageData.data[i + 1] &&
+              rgb[2] === imageData.data[i + 2]
+          )
         )
-      )
-      if (toColor) {
-        imageData.data[i] = toColor[0]
-        imageData.data[i + 1] = toColor[1]
-        imageData.data[i + 2] = toColor[2]
-        if (!this._keepAlpha) imageData.data[i + 3] = this._imageAlpha
+        if (toColor) {
+          imageData.data[i] = toColor[0]
+          imageData.data[i + 1] = toColor[1]
+          imageData.data[i + 2] = toColor[2]
+          if (!this._keepAlpha) imageData.data[i + 3] = this._imageAlpha
+        }
       }
-    }
 
-    context.putImageData(imageData, 0, 0)
-    return canvas
+      context.putImageData(imageData, 0, 0)
+      resolve(canvas)
+    })
   }
 }
