@@ -536,10 +536,10 @@ levelup@^0.18.2:
     semver "~2.3.1"
     xtend "~3.0.0"
 
-light-engine@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/light-engine/-/light-engine-1.2.1.tgz#ffbc001cc5fa7ea36ab74ed3ac9015be4a371019"
-  integrity sha512-FGwI9VUXKCF6Rn9mL3Rq4X6O78Gxzawa8djm5jSeYxNzQtSzeqyOz39po3Q4AslRoKYBcXTKhirCklspU2vcqw==
+light-engine@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/light-engine/-/light-engine-1.5.2.tgz#27c38db5a7fb068a61684e3b38b9242401ed4322"
+  integrity sha512-EjGHtUszgcFV2ouVLxP4jBtVk3cVzTOLngRbzxkjXxTQwhw8z3NRbHFHysydn9BrVM1LBvqhw2bUFdfz4+jAbw==
 
 ltgt@^2.1.2:
   version "2.2.1"
