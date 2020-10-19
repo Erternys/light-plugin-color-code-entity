@@ -1,6 +1,6 @@
 {
   "name": "color-code-entity-light-plugin",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Light Engine is a game engine by Grozzlo",
   "main": "lib/color-code.cjs.js",
   "typings": "types/index.d.ts",
@@ -26,6 +26,6 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
-    "light-engine": "^1.5.2"
+    "light-engine": "latest"
   }
 }
